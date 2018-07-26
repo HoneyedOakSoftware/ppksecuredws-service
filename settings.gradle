@@ -1,0 +1,6 @@
+rootProject.name = 'ppksecuredws-service'
+include 'ppksecuredws'
+include 'ppksecuredws-annotation'
+include 'ppksecuredws-processor'
+include 'ppksecuredws'
+
