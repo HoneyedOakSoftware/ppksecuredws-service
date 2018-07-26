@@ -1,6 +1,6 @@
 dependencies {
+    implementation 'com.github.HoneyedOakSoftware.ppksecuredws-crypto-util:cryptoutil:v0.0.3'
 
-    //depends on cryptoutil project
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
