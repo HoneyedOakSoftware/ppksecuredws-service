@@ -1,5 +1,5 @@
 allprojects {
-    version "0.0.2"
+    version "0.0.3"
     group 'com.honeyedoak'
 
     repositories {
@@ -9,7 +9,7 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java-library'
+    apply plugin: 'java'
     apply plugin: 'maven'
 
     sourceCompatibility = 1.8
