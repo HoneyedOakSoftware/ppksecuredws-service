@@ -1,4 +1,4 @@
-package com.honeyedoak.ppksecuredws.service;
+package com.honeyedoak.ppksecuredws;
 
 import com.google.common.reflect.TypeToken;
 import com.honeyedoak.ppksecuredws.model.SecuredJson;
@@ -7,7 +7,7 @@ import com.honeyedoak.cryptoutils.exception.CryptoException;
 
 import java.security.Key;
 
-public interface GenericSecureJsonService<T> extends SecureJsonService {
+public interface GenericSecureJsonConverter<T> extends SecureJsonConverter {
 
 	default Class<? super T> getParameterClass() {
 		final TypeToken<T> typeToken = new TypeToken<T>(getClass()) {

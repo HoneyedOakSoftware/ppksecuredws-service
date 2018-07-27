@@ -1,7 +1,10 @@
 package com.honeyedoak.ppksecuredws.processor;
 
+import com.honeyedoak.cryptoutils.AsymmetricCryptoService;
+import com.honeyedoak.cryptoutils.SymmetricCryptoService;
+import com.honeyedoak.ppksecuredws.GenericSecureJsonConverter;
+import com.honeyedoak.ppksecuredws.GenericSecureJsonConverterImpl;
 import com.honeyedoak.ppksecuredws.annotation.SecureJsonConverter;
-import com.honeyedoak.ppksecuredws.service.GenericSecureJsonServiceImpl;
 import com.squareup.javapoet.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -115,26 +118,33 @@ public class SecureJsonConverterAnnotatedClass {
 		String symmetricCryptoServiceParamName = "symmetricCryptoService";
 		String asymmetricCryptoServiceParamName = "asymmetricCryptoService";
 
+		AnnotationSpec annotationSpec = AnnotationSpec.builder(org.springframework.beans.factory.annotation.Value.class)
+				.addMember("value", "$S", String.format("${%s:%s}", charsetPropertyName, charsetDefaultValue)).build();
+
 		ParameterSpec charsetParam = ParameterSpec.builder(String.class, charsetParamName)
-				.addAnnotation(org.springframework.beans.factory.annotation.Value.class)
+				.addAnnotation(AnnotationSpec.builder(org.springframework.beans.factory.annotation.Value.class)
+						.addMember("value", "$S", String.format("${%s:%s}",charsetPropertyName, charsetDefaultValue)).build())
 				.build();
 
 		ParameterSpec oneTimePasswordLengthParam = ParameterSpec.builder(int.class, oneTimePasswordLengthParamName)
-				.addAnnotation(org.springframework.beans.factory.annotation.Value.class)
+				.addAnnotation(AnnotationSpec.builder(org.springframework.beans.factory.annotation.Value.class)
+						.addMember("value", "$S", String.format("${%s:%d}", oneTimePasswordLengthPropertyName, oneTimePasswordLengthDefaultValue)).build())
 				.build();
 
 		ParameterSpec keystoreLocationParam = ParameterSpec.builder(String.class, keystoreLocationParamName)
-				.addAnnotation(org.springframework.beans.factory.annotation.Value.class)
+				.addAnnotation(AnnotationSpec.builder(org.springframework.beans.factory.annotation.Value.class)
+						.addMember("value", "$S", String.format("${%s}", keystoreLocationPropertyName)).build())
 				.build();
 
 		ParameterSpec keystorePasswordParam = ParameterSpec.builder(String.class, keystorePasswordParamName)
-				.addAnnotation(org.springframework.beans.factory.annotation.Value.class)
+				.addAnnotation(AnnotationSpec.builder(org.springframework.beans.factory.annotation.Value.class)
+						.addMember("value", "$S", String.format("${%s}", keystorePasswordPropertyName)).build())
 				.build();
 
-		ParameterSpec symmetricCryptoServiceParam = ParameterSpec.builder(String.class, symmetricCryptoServiceParamName)
+		ParameterSpec symmetricCryptoServiceParam = ParameterSpec.builder(SymmetricCryptoService.class, symmetricCryptoServiceParamName)
 				.build();
 
-		ParameterSpec asymmetricCryptoServiceParam = ParameterSpec.builder(String.class, asymmetricCryptoServiceParamName)
+		ParameterSpec asymmetricCryptoServiceParam = ParameterSpec.builder(AsymmetricCryptoService.class, asymmetricCryptoServiceParamName)
 				.build();
 
 
@@ -148,7 +158,7 @@ public class SecureJsonConverterAnnotatedClass {
 				.addParameter(symmetricCryptoServiceParam)
 				.addParameter(asymmetricCryptoServiceParam)
 				.addAnnotation(org.springframework.beans.factory.annotation.Autowired.class)
-				.addCode("super($S, $S, $S, $S, $S, $S);", charsetParamName, oneTimePasswordLengthParamName, keystoreLocationParamName, keystorePasswordParamName, symmetricCryptoServiceParamName, asymmetricCryptoServiceParamName)
+				.addCode("super($L, $L, $L, $L, $L, $L);", charsetParamName, oneTimePasswordLengthParamName, keystoreLocationParamName, keystorePasswordParamName, symmetricCryptoServiceParamName, asymmetricCryptoServiceParamName)
 				.build();
 
 		AnnotationSpec generated = AnnotationSpec.builder(Generated.class)
@@ -158,7 +168,7 @@ public class SecureJsonConverterAnnotatedClass {
 		TypeSpec secureJsonConverter = TypeSpec.classBuilder("Secured" + typeElement.getSimpleName() + "JsonConverter")
 				.addAnnotation(generated)
 				.addModifiers(Modifier.PUBLIC)
-				.superclass(ParameterizedTypeName.get(GenericSecureJsonServiceImpl.class, typeElement.asType().getClass()))
+				.superclass(ParameterizedTypeName.get(ClassName.get(GenericSecureJsonConverterImpl.class), ClassName.get(typeElement)))
 				.addAnnotation(Service.class)
 				.addMethod(constructor)
 				.build();

@@ -1,5 +1,5 @@
 dependencies {
-    implementation 'com.github.HoneyedOakSoftware.ppksecuredws-crypto-util:cryptoutil:v0.0.3'
+    implementation 'com.github.HoneyedOakSoftware.ppksecuredws-crypto-util:cryptoutil:v0.0.4'
 
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'

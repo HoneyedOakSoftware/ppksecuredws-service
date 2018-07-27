@@ -1,4 +1,4 @@
-package com.honeyedoak.ppksecuredws.service;
+package com.honeyedoak.ppksecuredws;
 
 import com.honeyedoak.cryptoutils.exception.CryptoException;
 import com.honeyedoak.cryptoutils.AsymmetricCryptoService;
@@ -16,7 +16,7 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.util.Base64;
 
-public abstract class AbstractSecureService implements SecureJsonService {
+public abstract class AbstractSecureConverter implements SecureJsonConverter {
 
 	private final Charset CHARSET;
 	private final int oneTimePasswordLength;
@@ -29,7 +29,7 @@ public abstract class AbstractSecureService implements SecureJsonService {
 	private final SymmetricCryptoService symmetricCryptoService;
 	private final String base64encodedSecureWsPublicKey;
 
-	public AbstractSecureService(String charset, int oneTimePasswordLength, String keystoreLocation, String keystorePassword, SymmetricCryptoService symmetricCryptoService, AsymmetricCryptoService asymmetricCryptoService) {
+	public AbstractSecureConverter(String charset, int oneTimePasswordLength, String keystoreLocation, String keystorePassword, SymmetricCryptoService symmetricCryptoService, AsymmetricCryptoService asymmetricCryptoService) {
 		this.oneTimePasswordLength = oneTimePasswordLength;
 		this.asymmetricCryptoService = asymmetricCryptoService;
 		this.symmetricCryptoService = symmetricCryptoService;

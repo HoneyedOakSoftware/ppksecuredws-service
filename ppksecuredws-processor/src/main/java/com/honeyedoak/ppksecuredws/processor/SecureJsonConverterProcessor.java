@@ -2,7 +2,6 @@ package com.honeyedoak.ppksecuredws.processor;
 
 import com.google.auto.service.AutoService;
 import com.honeyedoak.ppksecuredws.annotation.SecureJsonConverter;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -70,7 +69,9 @@ public class SecureJsonConverterProcessor extends AbstractProcessor {
 	}
 
 	private boolean isValid(SecureJsonConverterAnnotatedClass annotatedClass) {
-		throw new NotImplementedException();
+
+		//TODO
+		return true;
 	}
 
 	private void error(Element e, String msg, Object... args) {

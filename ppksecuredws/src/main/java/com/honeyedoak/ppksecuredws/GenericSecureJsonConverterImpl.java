@@ -1,19 +1,19 @@
-package com.honeyedoak.ppksecuredws.service;
+package com.honeyedoak.ppksecuredws;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.honeyedoak.ppksecuredws.model.SecuredJson;
 import com.honeyedoak.ppksecuredws.model.UnsecuredJson;
-import com.honeyedoak.cryptoutils.AsymetricCryptoUtils;
-import com.honeyedoak.cryptoutils.SymetricCryptoUtils;
+import com.honeyedoak.cryptoutils.AsymmetricCryptoService;
+import com.honeyedoak.cryptoutils.SymmetricCryptoService;
 import com.honeyedoak.cryptoutils.exception.CryptoException;
 
 import java.io.IOException;
 import java.security.Key;
 
-public class GenericSecureJsonServiceImpl<T> extends AbstractSecureService implements GenericSecureJsonService<T> {
+public class GenericSecureJsonConverterImpl<T> extends AbstractSecureConverter implements GenericSecureJsonConverter<T> {
 
-	public GenericSecureJsonServiceImpl(String charset, int oneTimePasswordLength, String keystoreLocation, String keystorePassword, SymmetricCryptoService symmetricCryptoService, AsymmetricCryptoService asymmetricCryptoService) {
+	public GenericSecureJsonConverterImpl(String charset, int oneTimePasswordLength, String keystoreLocation, String keystorePassword, SymmetricCryptoService symmetricCryptoService, AsymmetricCryptoService asymmetricCryptoService) {
 		super(charset, oneTimePasswordLength, keystoreLocation, keystorePassword, symmetricCryptoService, asymmetricCryptoService);
 	}
 

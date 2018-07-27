@@ -1,4 +1,6 @@
 dependencies {
+    implementation 'com.github.HoneyedOakSoftware.ppksecuredws-crypto-util:cryptoutil:v0.0.4'
+
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc4'
     compile group: 'com.squareup', name: 'javapoet', version: '1.11.1'
